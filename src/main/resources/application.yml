@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: tasket
+
+  thymeleaf:
+    enable: true
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    check-template-location: true
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/tasket_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: tasket
+    password: tasket0987
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        show-sql: true
+        format-sql: true
+    hibernate:
+      ddl-auto: create  # 실서버에서는 "validate"로 변경하는 것이 좋음
