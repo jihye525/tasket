@@ -29,7 +29,7 @@ img {
   margin-bottom: 20px;
 }
 
-.login {
+.sign-up {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,7 +65,7 @@ input {
   box-sizing: border-box;
 }
 
-.login a {
+.sign-up a {
   text-align: center;
   text-decoration: none;
   color: inherit;
@@ -90,7 +90,6 @@ button:hover {
   background-color: #565e9b;
 }
 
-/* 프로필 이미지 선택 버튼 스타일 */
 .profile-image-label {
   padding: 10px 20px;
   background-color: #8e8f8e;
@@ -110,5 +109,5 @@ button:hover {
 }
 
 input[type="file"] {
-  display: none; /* 기본 input[type="file"] 숨기기 */
+  display: none;
 }
