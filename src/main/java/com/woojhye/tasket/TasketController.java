@@ -10,4 +10,19 @@ public class TasketController {
     public String toMain(){
         return "/main";
     }
+
+    @GetMapping("/login")
+    public String toLogin(){
+        return "/contents/login";
+    }
+
+    @GetMapping("/mypage")
+    public String toMypage(){
+        return "/contents/mypage";
+    }
+
+    @GetMapping("/sign-up")
+    public String toSignup(){
+        return "/contents/sign-up";
+    }
 }
