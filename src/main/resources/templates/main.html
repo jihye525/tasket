@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" />
+    <title>main</title>
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+    <div id = "container">
+        <nav>
+            <div class="logo-container"><a href="#"><img src="/image/tasket-logo-black.png" class="logo"></a></div>
+            <div class="nav-container">
+                <ul>
+                    <li><a href="#">마이페이지</a></li>
+                    <li><a href="#">로그아웃</a></li>
+                </ul>
+            </div>
+        </nav>
+        <main>
+            <section>
+                <div class="box1">
+                    <div class="category">
+                        카테고리
+                    </div>
+                    <div class="note">
+                        노트
+                    </div>
+                </div>
+                <div class="box2">
+                    <div class ="recent_task">
+                        <div class="todo-app">
+                            <div class="row">
+                                <input type="text" id="input-box" placeholder="Add yout text" />
+                                <button onclick="addTask()">Add</button>
+                            </div>
+                            <ul id="list-container">
+                                <li class="checked">Task 1</li>
+                                <li>Task 2</li>
+                                <li>Task 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box3">
+                    <div class="calendar">
+                        캘린더
+                    </div>
+                    <div class = "graph">
+                        달성량 그래프
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="inner">
+                <div class="footer-contact"><a href="https://github.com/ooojin000/tasket" target="_blank">Github</a></div>
+                <div class="footer-contact">이메일: jihye07201@gmail.com | ooojin523@gmail.com</div>
+                <div class="footer-copyright">Copyright 2020 All ⓒ rights reserved</div>
+            </div>
+        </footer>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
