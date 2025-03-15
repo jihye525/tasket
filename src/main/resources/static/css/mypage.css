@@ -5,7 +5,6 @@
   padding: 0;
   font-family: "Noto Sans KR", sans-serif;
   box-sizing: border-box;
-  color: #ccc;
 }
 
 .container {
@@ -30,34 +29,50 @@ img {
   margin-bottom: 20px;
 }
 
-.login {
+.mypage {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: white;
-  padding: 20px 200px;
+  padding: 10px 120px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   height: 97vh;
 }
 
-.login p,
-.login form {
-  margin-bottom: 10px;
+.input-group {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+  margin-bottom: 10px;
+  align-items: center;
 }
 
-.login input {
+label {
+  text-align: left;
+  flex: 1;
+  font-size: 14px;
+}
+
+input {
+  flex: 2;
   padding: 8px;
   margin: 5px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width: 250px;
+  width: 350px;
   box-sizing: border-box;
 }
 
-.login a {
+.disabled-input {
+  pointer-events: none;
+  background-color: #f0f0f0;
+  color: #888;
+  border: 1px solid #ccc;
+}
+
+.mypage a {
   text-align: center;
   text-decoration: none;
   color: inherit;
@@ -66,44 +81,40 @@ img {
 button {
   padding: 10px 20px;
   border: none;
-  background-color: #5c615c;
+  background-color: #9599b5;
   color: white;
   border-radius: 4px;
   cursor: pointer;
   width: 250px;
   margin-bottom: 10px;
+  align-self: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 button:hover {
+  background-color: #565e9b;
+}
+
+.profile-image-label {
+  padding: 10px 20px;
+  background-color: #8e8f8e;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 250px;
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.profile-image-label:hover {
   background-color: #474b48;
 }
 
-.kakao-login {
-  background-color: #f7e600;
-  color: #3c1e1e;
-  width: 250px;
-}
-
-.kakao-login:hover {
-  background-color: #f1d800;
-}
-
-.links {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.links a {
-  text-decoration: none;
-  color: #5c615c;
-}
-
-.links a:hover {
-  text-decoration: underline;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+input[type="file"] {
+  display: none;
 }
