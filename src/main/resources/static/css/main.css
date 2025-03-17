@@ -6,24 +6,27 @@
     box-sizing: border-box;
     color: #333;
 }
-html, body{
+
+html, body {
     margin: 0;
     padding: 0;
 }
-#container{
+
+#container {
     min-height: 100vh;
     position: relative;
     width: 100%;
 }
 
-nav{
+nav {
     width: 100%;
     position: relative;
     text-align: end;
     padding-right: 20px;
     display: flex;
 }
-nav>a {
+
+nav > a {
     line-height: 80px;
     display: block;
     font-size: 30px;
@@ -65,12 +68,16 @@ nav>div .nav-menu li a:hover {
     width: 80px;
     height: 80px;
 }
+
 main {
     background: #ffffff;
     height: 85%;
     padding-bottom: 20px;
+    width: 80%;
+    padding-left: 300px;
 }
-section{
+
+section {
     background-color: #ffffff;
     padding-left: 50px;
     padding-right: 50px;
@@ -79,27 +86,29 @@ section{
     justify-content: center;
 
 }
-.box1{
+
+.box1 {
     width: 300vw;
     height: 80vh;
     background-color: #edeef0;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
 }
+
 .box2{
     width: 250vw;
     height: 80vh;
     background-color: #e3e3e3;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
-    padding-left: 2rem;
 }
+
 .note{
-    width: 80%;
-    height: 30%;
+    width: 400px;
+    height: 35%;
     background-color: #ffffff;
     margin: 20px;
-    border-radius: 30px;
+    border-radius: 15px;
 }
 .recent_task{
     width: 95%;
@@ -108,43 +117,51 @@ section{
     margin: 20px;
     border-radius: 30px;
 }
-.calendar{
+
+.calendar {
     width: 80%;
-    height: 60%;
+    height: 55%;
     background-color: #ffffff;
     margin: 20px;
     border-radius: 30px;
 }
+
 .logo-container{
     width: 50%;
     padding-top: 12px;
 }
-.nav-container{
+
+.nav-container {
     width: 50%;
 }
-footer{
+
+footer {
     width: 100%;
     height: 110px;
     border-top: 1px solid #e4e4e4;
-    background-color:#ffffff;
+    background-color: #ffffff;
 }
-footer a{
+
+footer a {
     display: inline-block;
     margin: 0 20px 10px 20px;
-    font-size:0.9rem;
+    font-size: 0.9rem;
 }
-footer a:visited{
+
+footer a:visited {
     color: #808080;
 }
-.footer-contact{
-    font-size:0.9rem;
-    color:#545e6f;
-    margin:0.6rem;
+
+.footer-contact {
+    font-size: 0.9rem;
+    color: #545e6f;
+    margin: 0.6rem;
 }
-.footer-copyright{
-    font-size:0.9rem;
-    color:#545e6f;
-    margin:0.6rem;
+
+.footer-copyright {
+    font-size: 0.9rem;
+    color: #545e6f;
+    margin: 0.6rem;
 }
 
 /*-----------------------------------------*/
@@ -153,16 +170,19 @@ footer a:visited{
     padding: 10px;
     margin: 10px;
 }
+
 .todo-app h2 {
     color: #002765;
     display: flex;
     align-items: center;
     margin-bottom: 20px;
 }
+
 .todo-app h2 img {
     width: 30px;
     margin-left: 10px;
 }
+
 .row {
     display: flex;
     align-items: center;
@@ -174,6 +194,7 @@ footer a:visited{
     gap: 8px;
     height: 50px;
 }
+
 input {
     flex: 1;
     border: none;
@@ -223,7 +244,8 @@ input {
     justify-content: center;
     border: none;
 }
-#list-container{
+
+#list-container {
     padding: 0 20px;
 }
 .todo-list {
@@ -293,5 +315,69 @@ input {
     color: #4a90e2;
 }
 
+.calendar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
 
+.btn {
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.dateTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.dateHead, .dateBoard {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding-bottom: 10px;
+}
+
+.dateHead div {
+    background: #b0cbcc;
+    border-radius: 5px;
+    padding: 3px 5px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.dateBoard div {
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.noColor {
+    background-color: transparent;
+}
+
+.dateBoard div:hover {
+    background: #b0cbcc;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.dateBoard div.active {
+    background-color: #6fa3a8;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}

@@ -37,7 +37,7 @@ function handleDragLeave(e) {
 function handleDrop(e) {
     e.stopPropagation();
     e.preventDefault();
-    
+
     if (draggedItem !== this) {
         const allItems = [...listContainer.querySelectorAll('li')];
         const draggedIndex = allItems.indexOf(draggedItem);
@@ -48,11 +48,11 @@ function handleDrop(e) {
         } else {
             this.parentNode.insertBefore(draggedItem, this);
         }
-        
+
         // 드래그 앤 드롭 후에도 완료된 항목이 아래로 가도록 정렬
         setTimeout(sortTasks, 0);
     }
-    
+
     this.classList.remove('drag-over');
     return false;
 }
@@ -68,7 +68,7 @@ function addDragEvents(li) {
 }
 
 // 알림 토글 이벤트 처리
-notificationToggle.addEventListener("change", function() {
+notificationToggle.addEventListener("change", function () {
     notificationTime.disabled = !this.checked;
 });
 
@@ -76,7 +76,7 @@ function formatDateDiff(date) {
     const now = new Date();
     const diffTime = date - now;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays < 0) {
         return `${Math.abs(diffDays)}일 지남`;
     } else if (diffDays === 0) {
@@ -91,18 +91,18 @@ function sortTasks() {
     tasks.sort((a, b) => {
         const aIsChecked = a.classList.contains('checked');
         const bIsChecked = b.classList.contains('checked');
-        
+
         if (aIsChecked === bIsChecked) {
             // 둘 다 완료되었거나 둘 다 완료되지 않은 경우 날짜순 정렬
             const aDate = new Date(a.querySelector('.task-date').textContent.split(' ')[0]);
             const bDate = new Date(b.querySelector('.task-date').textContent.split(' ')[0]);
             return aDate - bDate;
         }
-        
+
         // 완료된 항목은 아래로
         return aIsChecked ? 1 : -1;
     });
-    
+
     // 정렬된 순서대로 DOM 재배치
     tasks.forEach(task => listContainer.appendChild(task));
 }
@@ -127,11 +127,11 @@ function addTask() {
         notification: notificationToggle.checked,
         notificationTime: notificationToggle.checked ? notificationTime.value : null,
     };
-    
+
     // 날짜가 지났는지 확인
     const now = new Date();
     const isPast = taskDate < now;
-    
+
     li.innerHTML = `
         <div class="task-date ${isPast ? 'past-task' : 'future-task'}">
             ${taskDate.toLocaleDateString()} (${formatDateDiff(taskDate)})
@@ -141,13 +141,13 @@ function addTask() {
             ${taskInfo.notification ? ` (${notificationTime.options[notificationTime.selectedIndex].text} 알림)` : ''}
         </div>
     `;
-    
+
     // 드래그 이벤트 추가
     addDragEvents(li);
-    
+
     listContainer.appendChild(li);
     sortTasks(); // 추가 후 정렬
-    
+
     let span = document.createElement("span");
     span.innerHTML = "\u00d7";
     li.appendChild(span);
@@ -156,7 +156,7 @@ function addTask() {
     if (taskInfo.notification) {
         const notificationMinutes = parseInt(taskInfo.notificationTime);
         const notificationTime = new Date(taskDate.getTime() - (notificationMinutes * 60000));
-        
+
         if (notificationTime > now) {
             setTimeout(() => {
                 if (Notification.permission === "granted") {
@@ -191,7 +191,7 @@ function addDragEventsToExistingTasks() {
     tasks.forEach(task => addDragEvents(task));
 }
 
-listContainer.addEventListener("click", function(e) {
+listContainer.addEventListener("click", function (e) {
     if (e.target.tagName === "LI") {
         e.target.classList.toggle("checked");
         sortTasks(); // 체크 상태 변경 후 정렬
@@ -215,10 +215,67 @@ function showTask() {
 // 페이지 로드 시 할일 목록 표시
 showTask();
 
-// 카테고리 데이터 불러오기
-loadCategories();
-
 // 알림 권한 요청
 if (Notification.permission !== "granted" && Notification.permission !== "denied") {
     Notification.requestPermission();
 }
+
+// 임시 데이터
+const data = [
+    {date: '2022-10-15', content: '테스트1'},
+    {date: '2022-10-03', content: '테스트2'},
+    {date: '2022-10-15', content: '테스트3'},
+    {date: '2022-10-26', content: '테스트4'},
+    {date: '2022-10-21', content: '테스트5'},
+];
+
+// 데이터 가공
+const calendarList = data.reduce(
+    (acc, v) =>
+        ({...acc, [v.date]: [...(acc[v.date] || []), v.content]})
+    , {}
+);
+
+// pad method
+Number.prototype.pad = function () {
+    return this > 9 ? this : '0' + this;
+}
+
+const makeCalendar = (date) => {
+    const currentYear = date.getFullYear();
+    const currentMonth = date.getMonth() + 1;
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+
+    const dateBoard = document.querySelector('.dateBoard');
+    const dateTitle = document.querySelector('.dateTitle');
+
+    dateBoard.innerHTML = '';
+
+    dateTitle.innerText = `${currentYear}년 ${currentMonth}월`;
+
+    let htmlDummy = '';
+
+    for (let i = 0; i < firstDay; i++) {
+        htmlDummy += '<div class="noColor"></div>';
+    }
+
+    for (let i = 1; i <= lastDay; i++) {
+        htmlDummy += `<div>${i}</div>`;
+    }
+
+    dateBoard.innerHTML = htmlDummy;
+}
+
+const date = new Date();
+makeCalendar(date);
+
+document.querySelector('.prevDay').addEventListener('click', () => {
+    date.setMonth(date.getMonth() - 1);
+    makeCalendar(date);
+});
+
+document.querySelector('.nextDay').addEventListener('click', () => {
+    date.setMonth(date.getMonth() + 1);
+    makeCalendar(date);
+});
