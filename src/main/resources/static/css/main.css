@@ -79,14 +79,14 @@ section{
     justify-content: center;
 
 }
-.box2{
+.box1{
     width: 300vw;
     height: 80vh;
     background-color: #edeef0;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
 }
-.box3{
+.box2{
     width: 250vw;
     height: 80vh;
     background-color: #e3e3e3;
