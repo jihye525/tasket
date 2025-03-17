@@ -10,7 +10,7 @@
         <nav>
             <div class="logo-container"><a href="#"><img src="/image/tasket-logo-black.png" class="logo"></a></div>
             <div class="nav-container">
-                <ul>
+                <ul class="nav-menu">
                     <li><a href="#">마이페이지</a></li>
                     <li><a href="#">로그아웃</a></li>
                 </ul>
@@ -18,35 +18,36 @@
         </nav>
         <main>
             <section>
-                <div class="box1">
-                    <div class="category">
-                        카테고리
-                    </div>
-                    <div class="note">
-                        노트
-                    </div>
-                </div>
                 <div class="box2">
                     <div class ="recent_task">
                         <div class="todo-app">
                             <div class="row">
-                                <input type="text" id="input-box" placeholder="Add yout text" />
-                                <button onclick="addTask()">Add</button>
+                                <input type="text" id="input-box" placeholder="할일을 입력하세요" />
+                                <input type="datetime-local" id="task-time" />
+                                <select id="task-category" class="task-category-select">
+                                    <option value="">카테고리 선택</option>
+                                    <option value="default" selected>기본</option>
+                                </select>
+                                <div class="notification-settings">
+                                    <input type="checkbox" id="notification-toggle" />
+                                    <select id="notification-time" disabled>
+                                        <option value="10">10분 전</option>
+                                        <option value="60">1시간 전</option>
+                                        <option value="1440">하루 전</option>
+                                    </select>
+                                </div>
+                                <button onclick="addTask()">추가</button>
                             </div>
-                            <ul id="list-container">
-                                <li class="checked">Task 1</li>
-                                <li>Task 2</li>
-                                <li>Task 3</li>
+                            <ul id="list-container" class="todo-list">
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="box3">
                     <div class="calendar">
-                        캘린더
                     </div>
-                    <div class = "graph">
-                        달성량 그래프
+                    <div class = "note">
+                        메모
                     </div>
                 </div>
             </section>
@@ -59,6 +60,6 @@
             </div>
         </footer>
     </div>
-    <script src="main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
