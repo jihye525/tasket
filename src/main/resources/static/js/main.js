@@ -220,27 +220,6 @@ if (Notification.permission !== "granted" && Notification.permission !== "denied
     Notification.requestPermission();
 }
 
-// 임시 데이터
-const data = [
-    {date: '2022-10-15', content: '테스트1'},
-    {date: '2022-10-03', content: '테스트2'},
-    {date: '2022-10-15', content: '테스트3'},
-    {date: '2022-10-26', content: '테스트4'},
-    {date: '2022-10-21', content: '테스트5'},
-];
-
-// 데이터 가공
-const calendarList = data.reduce(
-    (acc, v) =>
-        ({...acc, [v.date]: [...(acc[v.date] || []), v.content]})
-    , {}
-);
-
-// pad method
-Number.prototype.pad = function () {
-    return this > 9 ? this : '0' + this;
-}
-
 const makeCalendar = (date) => {
     const currentYear = date.getFullYear();
     const currentMonth = date.getMonth() + 1;
@@ -278,4 +257,54 @@ document.querySelector('.prevDay').addEventListener('click', () => {
 document.querySelector('.nextDay').addEventListener('click', () => {
     date.setMonth(date.getMonth() + 1);
     makeCalendar(date);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const openModalBtn = document.getElementById("openModal");
+    const modal = document.getElementById("noteModal");
+    const closeModal = document.querySelector(".close");
+    const saveNoteBtn = document.getElementById("saveNote");
+    const noteText = document.getElementById("noteText");
+    const noteList = document.getElementById("note-list");
+
+    // 모달 열기
+    openModalBtn.addEventListener("click", function () {
+        modal.style.display = "block";
+    });
+
+    // 모달 닫기
+    closeModal.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // 저장 버튼 클릭 시 메모 추가
+    saveNoteBtn.addEventListener("click", function () {
+        if (noteText.value.trim() !== "") {
+            const li = document.createElement("li");
+            li.className = "note-item";
+            li.innerHTML = `
+                        <span>${noteText.value}</span>
+                        <button class="delete-btn">삭제</button>
+                    `;
+            noteList.appendChild(li);
+
+            // 입력 필드 초기화
+            noteText.value = "";
+            modal.style.display = "none";
+        }
+    });
+
+    // 삭제 기능
+    noteList.addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-btn")) {
+            event.target.parentElement.remove();
+        }
+    });
+
+    // 모달 바깥 클릭하면 닫기
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
 });
