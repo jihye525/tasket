@@ -1,0 +1,501 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif;
+    box-sizing: border-box;
+    color: #333;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+}
+
+nav {
+    width: 100%;
+    position: relative;
+    text-align: end;
+    padding-right: 20px;
+    display: flex;
+}
+
+nav > a {
+    line-height: 80px;
+    display: block;
+    font-size: 30px;
+    font-weight: 900;
+    position: absolute;
+    left: 30px;
+    text-decoration: none;
+    color: #333;
+    background: none;
+}
+
+nav > div .nav-menu {
+    display: inline-block;
+    list-style-type: none;
+    border: none;
+}
+
+nav > div .nav-menu li {
+    float: left;
+    line-height: 80px;
+    padding: 0 30px;
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+
+nav > div .nav-menu li a {
+    text-decoration: none;
+    color: #333;
+    background: none;
+    padding: 0;
+    font-size: 1rem;
+    border: none;
+}
+
+nav > div .nav-menu li a:hover {
+    color: #4a90e2;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+}
+
+main {
+    background: #ffffff;
+    height: 85%;
+    padding-bottom: 20px;
+    width: 80%;
+    padding-left: 300px;
+}
+
+section {
+    background-color: #ffffff;
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.box1 {
+    width: 300vw;
+    height: 80vh;
+    background-color: #edeef0;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.box2 {
+    width: 250vw;
+    height: 80vh;
+    background-color: #edeef0;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.note {
+    width: 400px;
+    height: 35%;
+    background-color: #ffffff;
+    margin: 20px;
+    border-radius: 15px;
+}
+
+.recent_task {
+    width: 95%;
+    height: 93%;
+    background-color: #ffffff;
+    margin: 20px;
+    border-radius: 30px;
+}
+
+.calendar {
+    width: 80%;
+    height: 55%;
+    background-color: #ffffff;
+    margin: 20px;
+    border-radius: 30px;
+}
+
+.logo-container {
+    width: 50%;
+    padding-top: 12px;
+}
+
+.nav-container {
+    width: 50%;
+}
+
+footer {
+    width: 100%;
+    height: 110px;
+    border-top: 1px solid #e4e4e4;
+    background-color: #ffffff;
+}
+
+footer a {
+    display: inline-block;
+    margin: 0 20px 10px 20px;
+    font-size: 0.9rem;
+}
+
+footer a:visited {
+    color: #808080;
+}
+
+.footer-contact {
+    font-size: 0.9rem;
+    color: #545e6f;
+    margin: 0.6rem;
+}
+
+.footer-copyright {
+    font-size: 0.9rem;
+    color: #545e6f;
+    margin: 0.6rem;
+}
+
+/*-----------------------------------------*/
+
+.todo-app {
+    padding: 10px;
+    margin: 10px;
+}
+
+.todo-app h2 {
+    color: #002765;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.todo-app h2 img {
+    width: 30px;
+    margin-left: 10px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #edeef0;
+    border-radius: 30px;
+    padding: 8px 30px;
+    margin: 25px 25px 25px 10px;
+    gap: 8px;
+    height: 50px;
+}
+
+input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 8px;
+    font-size: 14px;
+}
+
+#task-time {
+    flex: 0.8;
+    cursor: pointer;
+}
+
+.notification-settings {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#notification-toggle {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+#notification-time {
+    flex: 0 0 auto;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 15px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#notification-time:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.todo-app button {
+    padding: 8px 20px;
+    height: 34px;
+    background: #b2cbcc;
+    color: #fff;
+    font-size: 0.7rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+#list-container {
+    padding: 0 20px;
+}
+
+.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-list li {
+    font-size: 0.9rem;
+    padding: 15px;
+    user-select: none;
+    cursor: move;
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.todo-list li.dragging {
+    opacity: 0.5;
+    background: #f8f9fa;
+}
+
+.todo-list li.drag-over {
+    border-top: 2px solid #4a90e2;
+}
+
+.todo-list li.checked .task-content {
+    color: #555;
+    text-decoration: line-through;
+}
+
+.todo-list li span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    color: #555;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.todo-list li span:hover {
+    background: #edeef0;
+}
+
+.task-date {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.task-content {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.past-task {
+    color: #888;
+}
+
+.future-task {
+    color: #4a90e2;
+}
+
+.calendar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.btn {
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.dateTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.dateHead, .dateBoard {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding-bottom: 10px;
+}
+
+.dateHead div {
+    background: #b0cbcc;
+    border-radius: 5px;
+    padding: 3px 5px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.dateBoard div {
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.noColor {
+    background-color: transparent;
+}
+
+.dateBoard div:hover {
+    background: #90b2b3;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.dateBoard div.active {
+    background-color: #6fa3a8;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#note-section {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#openModal {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    background-color: #b2cbcc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#note-list {
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.note-item {
+    background: #f9f9f9;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note-item span {
+    flex-grow: 1;
+    margin-right: 10px;
+    word-wrap: break-word;
+}
+
+.note-item button {
+    background-color: #ff8383;
+    padding: 5px 10px;
+    min-width: 50px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    border-radius: 5px;
+}
+
+#noteText {
+    resize: none;
+    height: 100px;
+    overflow: auto;
+    margin-top: 10px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    background-color: #b2cbcc;
+    color: white;
+    border-radius: 5px;
+}
+
+.delete-btn {
+    background-color: #ff8383;
+}
