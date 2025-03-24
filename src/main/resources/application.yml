@@ -25,4 +25,4 @@ spring:
         show-sql: true
         format-sql: true
     hibernate:
-      ddl-auto: create  # 실서버에서는 "validate"로 변경하는 것이 좋음
+      ddl-auto: none  # 실서버에서는 "validate"로 변경하는 것이 좋음
