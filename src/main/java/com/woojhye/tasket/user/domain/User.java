@@ -2,14 +2,18 @@ package com.woojhye.tasket.user.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "user")
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "user")
 public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
@@ -26,5 +30,11 @@ public class User {
 
     private String profile;
 
+    public User(String email, String password, String nickname, String profile) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.profile = profile;
+    }
 }
 

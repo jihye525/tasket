@@ -11,7 +11,7 @@ public class TasketController {
         return "/main";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginForm")
     public String toLogin(){
         return "/contents/login";
     }
