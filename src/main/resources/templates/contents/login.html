@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,16 +8,25 @@
   </head>
   <body>
     <div class="container">
+
+
       <div class="login">
         <div class="logo">
           <img src="/image/tasket-logo-black.png" alt="로고 이미지" />
         </div>
-        <form role="form" method="post" class="login-form">
+        <div th:if="${message}" class="alert alert-success" role="alert">
+          <p th:text="${message}"></p>
+        </div>
+        <div th:if="${error}" class="alert alert-danger" role="alert">
+          <p th:text="${error}"></p>
+        </div>
+        <form role="form" method="post" action="/user/login-proc" class="login-form">
           <p>
             <input
-              type="text"
-              placeholder="아이디를 입력해 주세요."
-              name="userId"
+              type="email"
+              placeholder="이메일을 입력해 주세요."
+              name="email"
+              autocomplete="email"
               required
             />
           </p>
@@ -25,16 +34,19 @@
             <input
               type="password"
               placeholder="비밀번호를 입력해주세요."
-              name="userPassword"
+              name="password"
+              autocomplete="current-password"
+              required
             />
           </p>
           <button type="submit">로그인</button>
-          <button type="button" class="kakao-login">카카오로 로그인</button>
-          <p class="links">
-            <a href="/find-password">비밀번호 찾기</a> |
-            <a href="/sign-up">회원가입</a>
-          </p>
+
         </form>
+        <button type="button" class="kakao-login">카카오로 로그인</button>
+        <p class="links">
+          <a href="/find-password">비밀번호 찾기</a> |
+          <a href="/sign-up">회원가입</a>
+        </p>
       </div>
     </div>
   </body>
