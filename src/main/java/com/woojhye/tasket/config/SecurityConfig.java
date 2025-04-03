@@ -21,7 +21,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth       // 스프링부트 3.1부터는 람다식 사용
-                        .requestMatchers("/login", "/login-proc", "/sign-up", "sign-up-proc").permitAll()     // 메인페이지와 로그인 페이지는 로그인 없이 접근 가능
+                        .requestMatchers("/login", "/login-proc", "/sign-up", "/sign-up-proc").permitAll()     // 메인페이지와 로그인 페이지는 로그인 없이 접근 가능
                         .requestMatchers("/admin").hasRole("ADMIN")                             // "/admin" 페이지는 관리자("ADMIN" 역할을 가진 사용자)만 접근 가능
                         .requestMatchers("/").hasAnyRole("ADMIN", "USER")           // "/"로 시작하는 페이지들은 "ADMIN" 또는 "USER" 권한을 가진 사용자만 접근 가능
                         .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()    //  정적 리소스 허용
