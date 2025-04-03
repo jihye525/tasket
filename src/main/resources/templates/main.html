@@ -9,10 +9,22 @@
 <div id="container">
     <nav>
         <div class="logo-container"><a href="#"><img src="/image/tasket-logo-black.png" class="logo"></a></div>
+        <p>사용자 ID: <span th:text="${id}"></span></p>
+        <p>사용자 역할: <span th:text="${role}"></span></p>
+
+        <!-- ROLE_ADMIN인 경우 -->
+        <div th:if="${role == 'ROLE_ADMIN'}">
+            <p>관리자 페이지에 접근할 수 있습니다.</p>
+        </div>
+
+        <!-- ROLE_USER인 경우 -->
+        <div th:if="${role == 'ROLE_USER'}">
+            <p>일반 사용자 페이지에 접근할 수 있습니다.</p>
+        </div>
         <div class="nav-container">
             <ul class="nav-menu">
                 <li><a href="/mypage">마이페이지</a></li>
-                <li><a href="#">로그아웃</a></li>
+                <li><a href="/logout">로그아웃</a></li>
             </ul>
         </div>
     </nav>

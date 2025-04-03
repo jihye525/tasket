@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login</title>
-    <link rel="stylesheet" href="/css/login.css" />
-  </head>
-  <body>
-    <div class="container">
-
-
-      <div class="login">
+    <link rel="stylesheet" href="/css/login.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="login">
         <div class="logo">
-          <img src="/image/tasket-logo-black.png" alt="로고 이미지" />
+            <img src="/image/tasket-logo-black.png" alt="로고 이미지"/>
         </div>
-        <div th:if="${message}" class="alert alert-success" role="alert">
-          <p th:text="${message}"></p>
-        </div>
-        <div th:if="${error}" class="alert alert-danger" role="alert">
-          <p th:text="${error}"></p>
-        </div>
-        <form role="form" method="post" action="/user/login-proc" class="login-form">
-          <p>
-            <input
-              type="email"
-              placeholder="이메일을 입력해 주세요."
-              name="email"
-              autocomplete="email"
-              required
-            />
-          </p>
-          <p>
-            <input
-              type="password"
-              placeholder="비밀번호를 입력해주세요."
-              name="password"
-              autocomplete="current-password"
-              required
-            />
-          </p>
-          <button type="submit">로그인</button>
-
+        <form role="form" method="post" action="/login-proc" class="login-form">
+            <div th:if="${param.error}">
+                <p style="color: red;">로그인에 실패했습니다. <br>아이디 또는 비밀번호를 확인하세요.</p>
+            </div>
+            <p>
+                <input
+                        type="email"
+                        placeholder="이메일을 입력해 주세요."
+                        name="email"
+                        autocomplete="email"
+                        required
+                />
+            </p>
+            <p>
+                <input
+                        type="password"
+                        placeholder="비밀번호를 입력해주세요."
+                        name="password"
+                        autocomplete="current-password"
+                        required
+                />
+            </p>
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <button type="submit">로그인</button>
         </form>
+
         <button type="button" class="kakao-login">카카오로 로그인</button>
+
         <p class="links">
-          <a href="/find-password">비밀번호 찾기</a> |
-          <a href="/sign-up">회원가입</a>
+            <a href="/find-password">비밀번호 찾기</a> |
+            <a href="/sign-up">회원가입</a>
         </p>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>
