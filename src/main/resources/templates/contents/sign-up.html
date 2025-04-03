@@ -13,7 +13,7 @@
             <img src="/image/tasket-logo-black.png" alt="로고 이미지"/>
         </div>
 
-        <form action="/sign-up-proc" method="POST" enctype="multipart/form-data">
+        <form role="form" action="/sign-up-proc" method="post">
             <p class="input-group">
                 <label for="email">이메일</label>
                 <input
@@ -42,7 +42,7 @@
                         type="password"
                         id="userPasswordConfirm"
                         placeholder="비밀번호를 다시 입력해주세요."
-                        name="userPasswordConfirm"
+                        name="password"
                         autocomplete="new-password"
                         required
                 />
@@ -69,6 +69,8 @@
                         id="profileImage"
                 />
             </p>
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
             <button type="submit">회원가입</button>
 
