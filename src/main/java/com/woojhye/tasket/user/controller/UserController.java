@@ -1,9 +1,10 @@
 package com.woojhye.tasket.user.controller;
 
 import com.woojhye.tasket.user.dto.SignUpDTO;
-import com.woojhye.tasket.user.service.SignUpService;
+import com.woojhye.tasket.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,10 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class UserController {
-
-    @Autowired
-    private SignUpService signUpService;
+@RequiredArgsConstructor
+public class UserController{
+    private final UserService signUpService;
 
     @GetMapping("/login")
     public String toLogin() {
@@ -24,13 +24,10 @@ public class UserController {
         return "/contents/login";
     }
 
-
     @GetMapping("/sign-up")
     public String toSignUp() {
-
         return "/contents/sign-up";
     }
-
 
     @PostMapping("/sign-up-proc")
     public String signUpProcess(SignUpDTO signUpDTO) {
