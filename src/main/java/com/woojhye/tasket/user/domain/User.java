@@ -1,12 +1,13 @@
 package com.woojhye.tasket.user.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Setter
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -26,4 +27,6 @@ public class User {
 
     @Column(nullable = false)
     private String role;
+
+
 }
