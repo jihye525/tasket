@@ -1,79 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sign Up</title>
-    <link rel="stylesheet" href="/css/sign-up.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="sign-up">
+    <link rel="stylesheet" type="text/css" href="/css/sign-up.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="sign-up">
         <div class="logo">
-          <img src="/image/tasket-logo-black.png" alt="로고 이미지" />
+            <img src="/image/tasket-logo-black.png" alt="로고 이미지"/>
         </div>
-        <div th:if="${error}" class="alert alert-danger" role="alert">
-          <p th:text="${error}"></p>
-        </div>
-        <form action="/user/signup" method="POST" enctype="multipart/form-data">
-          <p class="input-group">
-            <label for="email">이메일</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="이메일을 입력해 주세요."
-              name="email"
-              autocomplete="email"
-              required
-            />
-          </p>
-          <p class="input-group">
-            <label for="password">비밀번호</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="비밀번호를 입력해주세요."
-              name="password"
-              autocomplete="new-password"
-              required
-            />
-          </p>
-          <p class="input-group">
-            <label for="userPasswordConfirm">비밀번호 확인</label>
-            <input
-              type="password"
-              id="userPasswordConfirm"
-              placeholder="비밀번호를 다시 입력해주세요."
-              name="userPasswordConfirm"
-              autocomplete="new-password"
-              required
-            />
-          </p>
-          <p class="input-group">
-            <label for="nickname">닉네임</label>
-            <input
-              type="text"
-              id="nickname"
-              placeholder="닉네임을 입력해주세요."
-              name="nickname"
-              autocomplete="nickname"
-              required
-            />
-          </p>
-          <p class="input-group">
-            <label for="profileImage" class="profile-image-label"
-              >프로필 이미지 선택</label
-            >
-            <input
-              type="file"
-              accept="image/*"
-              name="profileImage"
-              id="profileImage"
-            />
-          </p>
-          <button type="submit">회원가입</button>
+
+        <form action="/sign-up-proc" method="POST" enctype="multipart/form-data">
+            <p class="input-group">
+                <label for="email">이메일</label>
+                <input
+                        type="email"
+                        id="email"
+                        placeholder="이메일을 입력해 주세요."
+                        name="email"
+                        autocomplete="email"
+                        required
+                />
+            </p>
+            <p class="input-group">
+                <label for="password">비밀번호</label>
+                <input
+                        type="password"
+                        id="password"
+                        placeholder="비밀번호를 입력해주세요."
+                        name="password"
+                        autocomplete="new-password"
+                        required
+                />
+            </p>
+            <p class="input-group">
+                <label for="userPasswordConfirm">비밀번호 확인</label>
+                <input
+                        type="password"
+                        id="userPasswordConfirm"
+                        placeholder="비밀번호를 다시 입력해주세요."
+                        name="userPasswordConfirm"
+                        autocomplete="new-password"
+                        required
+                />
+            </p>
+            <p class="input-group">
+                <label for="nickname">닉네임</label>
+                <input
+                        type="text"
+                        id="nickname"
+                        placeholder="닉네임을 입력해주세요."
+                        name="nickname"
+                        autocomplete="nickname"
+                        required
+                />
+            </p>
+            <p class="input-group">
+                <label for="profileImage" class="profile-image-label"
+                >프로필 이미지 선택</label
+                >
+                <input
+                        type="file"
+                        accept="image/*"
+                        name="profileImage"
+                        id="profileImage"
+                />
+            </p>
+
+            <button type="submit">회원가입</button>
+
         </form>
-      </div>
+
     </div>
-  </body>
+</div>
+</body>
 </html>

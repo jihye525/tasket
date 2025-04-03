@@ -2,11 +2,8 @@ package com.woojhye.tasket.user.repository;
 
 import com.woojhye.tasket.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
-@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
+    boolean existsByEmail(String email);    // 존재하면 true, 존재하지 않으면 false;
+    User findByEmail(String email);
 }

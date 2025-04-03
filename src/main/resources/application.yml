@@ -1,6 +1,10 @@
 server:
   port: 8081
 
+  servlet:
+    session:
+      timeout: 1800s  # 세션 소멸 시간 설정 : 초 단위 (1800초 = 30분)
+
 spring:
   application:
     name: tasket
@@ -25,4 +29,4 @@ spring:
         show-sql: true
         format-sql: true
     hibernate:
-      ddl-auto: none  # 실서버에서는 "validate"로 변경하는 것이 좋음
+      ddl-auto: none
