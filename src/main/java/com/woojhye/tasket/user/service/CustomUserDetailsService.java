@@ -2,12 +2,8 @@ package com.woojhye.tasket.user.service;
 
 import com.woojhye.tasket.user.domain.User;
 import com.woojhye.tasket.user.dto.CustomUserDetails;
-import com.woojhye.tasket.user.dto.UserResponseDTO;
 import com.woojhye.tasket.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,13 +28,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (userData == null) {
             throw new UsernameNotFoundException("해당 이메일을 가진 사용자가 없습니다: " + email);
         }
-        ModelMapper modelMapper = new ModelMapper();
-        UserResponseDTO dto = modelMapper.map(userData, UserResponseDTO.class);
 
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(userData.getRole()));
+        System.out.println("✅ 사용자 조회 성공: " + email);
+        System.out.println("🔐 저장된 암호화된 비밀번호: " + userData.getPassword());
+        System.out.println("🎭 권한: " + userData.getRole());
 
-        return new CustomUserDetails(dto, roles);
+        return new org.springframework.security.core.userdetails.User(userData.getEmail(), userData.getPassword(), List.of(new SimpleGrantedAuthority(userData.getRole())));
     }
 
 }

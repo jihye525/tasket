@@ -15,10 +15,10 @@ public class SignUpDTO {
     private String nickname;
     private String profile;
 
-    public static User toEntity(SignUpDTO signUpDTO){
+    public static User toEntity(SignUpDTO signUpDTO, String encodedPassword){
         return User.builder()
                 .email(signUpDTO.getEmail())
-                .password(signUpDTO.getPassword())
+                .password(encodedPassword)
                 .nickname(signUpDTO.getNickname())
                 .profile(signUpDTO.getProfile().toString())
                 .role("ROLE_USER")

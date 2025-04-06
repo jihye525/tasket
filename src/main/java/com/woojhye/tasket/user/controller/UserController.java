@@ -5,28 +5,30 @@ import com.woojhye.tasket.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController{
-    private final UserService signUpService;
+    private final UserService userService;
 
     @GetMapping("/login")
-    public String toLogin() {
-
-        return "/contents/login";
+    public String toLogin(Model model, HttpServletRequest request) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+        return "contents/login";
     }
 
     @GetMapping("/sign-up")
     public String toSignUp() {
-        return "/contents/sign-up";
+        return "contents/sign-up";
     }
 
     @PostMapping("/sign-up-proc")
@@ -34,9 +36,9 @@ public class UserController{
 
         System.out.println(signUpDTO.getEmail());
 
-        signUpService.signUpProcess(signUpDTO);
+        userService.signUpProcess(signUpDTO);
 
-        return "redirect:/contents/login";
+        return "redirect:/login";
     }
 
     @GetMapping("/logout")
