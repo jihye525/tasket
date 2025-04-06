@@ -41,8 +41,8 @@ public class UserController{
             return "contents/sign-up";
         }
 
-        if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
-            bindingResult.rejectValue("password2", "passwordInCorrect",
+        if (!userCreateForm.getPassword().equals(userCreateForm.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
             return "contents/sign-up";
         }
