@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,7 +13,7 @@
             <img src="/image/tasket-logo-black.png" alt="로고 이미지"/>
         </div>
 
-        <form role="form" action="/sign-up-proc" method="post">
+        <form role="form" action="/sign-up" method="post">
             <p class="input-group">
                 <label for="email">이메일</label>
                 <input
@@ -24,6 +24,7 @@
                         autocomplete="email"
                         required
                 />
+
             </p>
             <p class="input-group">
                 <label for="password">비밀번호</label>
@@ -31,7 +32,7 @@
                         type="password"
                         id="password"
                         placeholder="비밀번호를 입력해주세요."
-                        name="password"
+                        name="password1"
                         autocomplete="new-password"
                         required
                 />
@@ -42,7 +43,7 @@
                         type="password"
                         id="userPasswordConfirm"
                         placeholder="비밀번호를 다시 입력해주세요."
-                        name="password"
+                        name="password2"
                         autocomplete="new-password"
                         required
                 />

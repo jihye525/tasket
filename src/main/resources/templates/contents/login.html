@@ -12,7 +12,7 @@
         <div class="logo">
             <img src="/image/tasket-logo-black.png" alt="로고 이미지"/>
         </div>
-        <form role="form" method="post" action="/login-proc" class="login-form">
+        <form role="form" method="post" action="/login" class="login-form">
             <div th:if="${param.error}">
                 <p style="color: red;">로그인에 실패했습니다. <br>아이디 또는 비밀번호를 확인하세요.</p>
             </div>
@@ -34,7 +34,7 @@
                         required
                 />
             </p>
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <button type="submit">로그인</button>
         </form>
 

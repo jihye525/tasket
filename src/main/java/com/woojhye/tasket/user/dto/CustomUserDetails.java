@@ -1,19 +1,52 @@
 package com.woojhye.tasket.user.dto;
 
+import com.woojhye.tasket.user.domain.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
-public class CustomUserDetails extends User {
-    private UserResponseDTO userResponseDTO;
-    public CustomUserDetails(UserResponseDTO dto, Collection<? extends GrantedAuthority> authorities) {
-        super(dto.getEmail(), dto.getPassword(), authorities);
-        this.userResponseDTO =dto;
+public class CustomUserDetails implements UserDetails {
+    private final User user;
+
+    public CustomUserDetails(User user) {
+        this.user = user;
     }
 
-    public UserResponseDTO getUserResposeDTO() {
-        return userResponseDTO;
+    @Override
+    public String getPassword() {
+        return user.getPassword(); // 🔍 ← 이거 확인!
     }
 
+    @Override
+    public String getUsername() {
+        return user.getEmail(); // 로그인에 사용하는 값이 email이면 이렇게!
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(user.getRole())); // ROLE_USER
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
