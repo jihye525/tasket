@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 @Setter
 @Getter
@@ -18,10 +17,10 @@ public class SignUpDTO {
     private String email;
 
     @NotEmpty(message = "비밀번호는 필수항목입니다.")
-    private String password1;
+    private String password;
 
     @NotEmpty(message = "비밀번호 확인은 필수항목입니다.")
-    private String password2;
+    private String confirmPassword;
 
     @NotEmpty(message = "닉네임은 필수항목입니다.")
     @Size(min = 3, max = 25)

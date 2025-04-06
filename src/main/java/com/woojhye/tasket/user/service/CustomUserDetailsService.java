@@ -1,7 +1,6 @@
 package com.woojhye.tasket.user.service;
 
 import com.woojhye.tasket.user.domain.User;
-import com.woojhye.tasket.user.dto.CustomUserDetails;
 import com.woojhye.tasket.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +18,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

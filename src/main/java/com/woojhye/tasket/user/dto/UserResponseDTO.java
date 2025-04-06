@@ -1,6 +1,5 @@
 package com.woojhye.tasket.user.dto;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 @Builder
