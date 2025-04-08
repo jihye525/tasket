@@ -1,70 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>MyPage</title>
-    <link rel="stylesheet" href="/css/mypage.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="mypage">
-        <div class="logo">
-          <img src="/image/tasket-logo-black.png" alt="로고 이미지" />
+    <link rel="stylesheet" href="/css/mypage.css"/>
+</head>
+<body>
+<div class="container">
+      <div class="sidebar">
+        <div class="sidebar-logo">
+            <a href="/">
+                <img src="/image/tasket-logo-black.png" alt="로고 이미지" />
+            </a>
         </div>
-        <form action="/mypage" method="POST" enctype="multipart/form-data">
-          <p class="input-group">
-            <label for="userEmail">이메일</label>
-            <input
-              type="email"
-              class="disabled-input"
-              id="userEmail"
-              placeholder="woojhye@gmail.com"
-              name=="email"
-              required
-            />
-          </p>
-          <p class="input-group">
-            <label for="password">비밀번호</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="비밀번호를 입력해주세요."
-              name="password"
-            />
-          </p>
-          <p class="input-group">
-            <label for="userPasswordConfirm">비밀번호 확인</label>
-            <input
-              type="password"
-              id="userPasswordConfirm"
-              placeholder="비밀번호를 다시 입력해주세요."
-              name="userPasswordConfirm"
-            />
-          </p>
-          <p class="input-group">
-            <label for="nickname">닉네임</label>
-            <input
-              type="text"
-              id="nickname"
-              placeholder="닉네임을 입력해주세요."
-              name="nickname"
-            />
-          </p>
-          <p class="input-group">
-            <label for="profile" class="profile-image-label"
-              >프로필 이미지 선택</label
-            >
-            <input
-              type="file"
-              accept="image/*"
-              name="profile"
-              id="profile"
-            />
-          </p>
-          <button type="submit">회원 정보 수정</button>
-        </form>
+        <ul class="sidebar-menu">
+          <li><a href="#profile-edit">회원정보 수정</a></li>
+          <li><a href="#progress">달성률</a></li>
+          <li><a href="/withdrawal">서비스 탈퇴</a></li>
+        </ul>
       </div>
+
+    <div class="mypage">
+        <form action="/mypage" method="POST">
+<!--            enctype="multipart/form-data"  -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <p class="input-group" id="profile-edit">
+                <label for="userEmail">이메일</label>
+                <input
+                        type="email"
+                        class="disabled-input"
+                        id="userEmail"
+                        name="email"
+                        th:value="${user.email}"
+                        readonly
+                />
+            </p>
+            <p class="input-group">
+                <label for="password">비밀번호</label>
+                <input
+                        type="password"
+                        id="password"
+                        placeholder="비밀번호를 입력해주세요."
+                        name="password"
+                />
+            </p>
+            <p class="input-group">
+                <label for="confirmPassword">비밀번호 확인</label>
+                <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="비밀번호를 다시 입력해주세요."
+                        name="confirmPassword"
+                 />
+            </p>
+            <p class="input-group">
+                <label for="nickname">닉네임</label>
+                <input
+                        type="text"
+                        id="nickname"
+                        placeholder="닉네임을 입력해주세요."
+                        name="nickname"
+                        th:value="${user.nickname}"
+                />
+            </p>
+            <p class="input-group">
+                <label for="profile" class="profile-image-label"
+                >프로필 이미지 선택</label
+                >
+                <input
+                        type="file"
+                        accept="image/*"
+                        name="profile"
+                        id="profile"
+                />
+            </p>
+            <button type="submit">회원 정보 수정</button>
+        </form>
     </div>
-  </body>
+</div>
+</body>
 </html>

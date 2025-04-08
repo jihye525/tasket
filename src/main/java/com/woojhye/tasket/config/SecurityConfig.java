@@ -21,11 +21,13 @@ public class SecurityConfig {
                         .requestMatchers("/login","/sign-up").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
                         .anyRequest().authenticated())
+
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/"))
+
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/login")

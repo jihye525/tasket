@@ -1,15 +1,13 @@
 package com.woojhye.tasket.user.repository;
 
-import com.woojhye.tasket.user.domain.User;
+import com.woojhye.tasket.user.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    boolean existsByEmail(String email);    // 존재하면 true, 존재하지 않으면 false;
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    Optional<UserEntity> findByEmail(String email);
 
-    Optional<User> findByEmail(String email);
-
-
+    boolean existsByEmailAndActiveTrue(String email);
 
 }

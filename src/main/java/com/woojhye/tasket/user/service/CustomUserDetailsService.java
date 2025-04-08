@@ -1,6 +1,6 @@
 package com.woojhye.tasket.user.service;
 
-import com.woojhye.tasket.user.domain.User;
+import com.woojhye.tasket.user.domain.UserEntity;
 import com.woojhye.tasket.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,20 +21,25 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        Optional<User> _userData = userRepository.findByEmail(email);    // 해당 이메일이 존재하면, userData 변수에 저장됨
+        Optional<UserEntity> _userData = userRepository.findByEmail(email);
 
         if (_userData.isEmpty()) {
-            throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
-        User userData = _userData.get();
+
+        UserEntity userData = _userData.get();
+
         List<GrantedAuthority> authorities = new ArrayList<>();
         if ("ROLE_ADMIN".equals(userData.getRole())) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
-        return new org.springframework.security.core.userdetails.User(userData.getEmail(), userData.getPassword(), authorities);
-    }
 
+        return new org.springframework.security.core.userdetails.User(
+                userData.getEmail(),
+                userData.getPassword(),
+                authorities
+        );
+    }
 }
