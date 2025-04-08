@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Setter
 @Getter
@@ -26,14 +27,12 @@ public class SignUpDTO {
     @Size(min = 3, max = 25)
     private String nickname;
 
-    private String profile;
-
+    private MultipartFile profile;
     public static User toEntity(SignUpDTO signUpDTO, String encodedPassword){
         return User.builder()
                 .email(signUpDTO.getEmail())
                 .password(encodedPassword)
                 .nickname(signUpDTO.getNickname())
-                .profile(signUpDTO.getProfile().toString())
                 .role("ROLE_USER")
                 .build();
     }

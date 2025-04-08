@@ -18,7 +18,7 @@ public class UserService {
         if (userRepository.existsByEmail(signUpDTO.getEmail())) {
             throw new RuntimeException("이미 존재하는 이메일입니다.");
         }
-        String encodedPassword = bCryptPasswordEncoder.encode(signUpDTO.getPassword1());
+        String encodedPassword = bCryptPasswordEncoder.encode(signUpDTO.getPassword());
 
         User user = SignUpDTO.toEntity(signUpDTO, encodedPassword);
 

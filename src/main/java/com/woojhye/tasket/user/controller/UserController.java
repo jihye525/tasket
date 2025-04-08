@@ -1,5 +1,7 @@
 package com.woojhye.tasket.user.controller;
 
+import com.woojhye.tasket.error.StorageException;
+import com.woojhye.tasket.file.FileService;
 import com.woojhye.tasket.user.dto.SignUpDTO;
 import com.woojhye.tasket.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,12 +17,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController{
     private final UserService userService;
+    private final FileService fileService;
 
     @GetMapping("/login")
     public String toLogin(Model model, HttpServletRequest request) {
@@ -35,26 +41,31 @@ public class UserController{
     }
 
     @PostMapping("/sign-up")
-    public String signup(@Valid SignUpDTO userCreateForm, BindingResult bindingResult) {
+    public String signup(@ModelAttribute @Valid SignUpDTO userCreateForm, BindingResult bindingResult) {
+//    public String signup(@Valid SignUpDTO userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getAllErrors());
             return "contents/sign-up";
         }
 
         if (!userCreateForm.getPassword().equals(userCreateForm.getConfirmPassword())) {
+            System.out.println("2개의 패스워드가 일치하지 않습니다.");
             bindingResult.rejectValue("confirmPassword", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
             return "contents/sign-up";
         }
 
         try {
+            fileService.store(userCreateForm.getProfile());
             userService.signUpProcess(userCreateForm);
         }catch(DataIntegrityViolationException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage()+ e.getCause());
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
             return "contents/sign-up";
         }catch(Exception e) {
             e.printStackTrace();
+            System.out.println(e.getMessage()+ e.getCause());
             bindingResult.reject("signupFailed", e.getMessage());
             return "contents/sign-up";
         }
