@@ -1,17 +1,16 @@
 package com.woojhye.tasket.user.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@Setter
 @Builder
+@Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -31,5 +30,6 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-
+    @Column(nullable = false)
+    private boolean active = true; // 기본값 true (탈퇴 전)
 }

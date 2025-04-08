@@ -1,6 +1,6 @@
 package com.woojhye.tasket.user.dto;
 
-import com.woojhye.tasket.user.domain.User;
+import com.woojhye.tasket.user.domain.UserEntity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -28,13 +28,15 @@ public class SignUpDTO {
 
     private String profile;
 
-    public static User toEntity(SignUpDTO signUpDTO, String encodedPassword){
-        return User.builder()
+    public static UserEntity toEntity(SignUpDTO signUpDTO, String encodedPassword){
+        return UserEntity.builder()
                 .email(signUpDTO.getEmail())
                 .password(encodedPassword)
                 .nickname(signUpDTO.getNickname())
                 .profile(signUpDTO.getProfile().toString())
                 .role("ROLE_USER")
+                .active(true)
                 .build();
     }
+
 }

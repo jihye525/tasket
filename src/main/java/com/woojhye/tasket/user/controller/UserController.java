@@ -1,6 +1,8 @@
 package com.woojhye.tasket.user.controller;
 
+import com.woojhye.tasket.user.domain.UserEntity;
 import com.woojhye.tasket.user.dto.SignUpDTO;
+import com.woojhye.tasket.user.dto.UserUpdateDTO;
 import com.woojhye.tasket.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,13 +10,16 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -27,6 +32,23 @@ public class UserController{
         CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
         model.addAttribute("_csrf", csrfToken);
         return "contents/login";
+    }
+
+    @GetMapping("/mypage")
+    public String toMyPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        UserEntity user = userService.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        model.addAttribute("user", user); // user 객체 넘기기
+        return "contents/mypage";
+    }
+
+    @PostMapping("/mypage")
+    public String updateUserInfo(@ModelAttribute UserUpdateDTO dto,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+
+        userService.updateUser(userDetails.getUsername(), dto);
+        return "redirect:/"; // 메인 페이지로
     }
 
     @GetMapping("/sign-up")
@@ -71,5 +93,21 @@ public class UserController{
         }
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/withdrawal")
+    public String toWithdrawal(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        UserEntity user = userService.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        model.addAttribute("user", user);
+        return "contents/withdrawal";
+    }
+
+    @PostMapping("/withdrawal")
+    public String deleteUser(@AuthenticationPrincipal UserDetails userDetails) {
+        userService.deleteUser(userDetails.getUsername());
+        SecurityContextHolder.clearContext(); // 로그아웃 처리
+        return "redirect:/login?logout";
     }
 }

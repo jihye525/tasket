@@ -7,17 +7,6 @@
   box-sizing: border-box;
 }
 
-/*.container {*/
-/*  width: 100%;*/
-/*  min-height: 100vh;*/
-/*  background: #edeef0;*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  padding: 10px;*/
-/*}*/
-
 .container {
   display: flex;
   flex-direction: row; /* 사이드바 + 마이페이지 레이아웃 */
@@ -76,7 +65,7 @@ img {
   color: #565e9b;
 }
 
-.mypage {
+.withdrawal {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -121,7 +110,7 @@ input {
   border: 1px solid #ccc;
 }
 
-.mypage a {
+.withdrawal a {
   text-align: center;
   text-decoration: none;
   color: inherit;
@@ -130,7 +119,7 @@ input {
 button {
   padding: 10px 20px;
   border: none;
-  background-color: #9599b5;
+  background-color: #ef5454;
   color: white;
   border-radius: 4px;
   cursor: pointer;
@@ -143,29 +132,7 @@ button {
 }
 
 button:hover {
-  background-color: #565e9b;
-}
-
-.profile-image-label {
-  padding: 10px 20px;
-  background-color: #8e8f8e;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 250px;
-  text-align: center;
-  display: inline-block;
-  margin-bottom: 10px;
-  text-decoration: none;
-  font-size: 12px;
-}
-
-.profile-image-label:hover {
-  background-color: #474b48;
-}
-
-input[type="file"] {
-  display: none;
+  background-color: #c63838;
 }
 
 .disabled-input {
