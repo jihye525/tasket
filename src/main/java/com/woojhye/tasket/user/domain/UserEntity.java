@@ -25,8 +25,6 @@ public class UserEntity {
     @Column(nullable = false)
     private String nickname;
 
-    private String profile;
-
     @Column(nullable = false)
     private String role;
 
