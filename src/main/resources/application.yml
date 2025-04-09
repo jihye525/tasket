@@ -28,4 +28,12 @@ spring:
         show-sql: true
         format-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+file:
+  dir: ${IMAGES}
