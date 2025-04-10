@@ -44,7 +44,7 @@ public class UserService {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        if (dto.getPassword() != null){
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()){
             user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         }
 
