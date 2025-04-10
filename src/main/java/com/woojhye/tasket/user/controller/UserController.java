@@ -1,5 +1,6 @@
 package com.woojhye.tasket.user.controller;
 
+
 import com.woojhye.tasket.file.domain.Profile;
 import com.woojhye.tasket.file.service.FileService;
 import com.woojhye.tasket.user.domain.UserEntity;
@@ -42,7 +43,7 @@ public class UserController{
         UserEntity user = userService.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        model.addAttribute("user", user); // user 객체 넘기기
+        model.addAttribute("user", user);
         return "contents/mypage";
     }
 
@@ -57,7 +58,7 @@ public class UserController{
             fileService.update(userDetails.getUsername(), dto.getProfile());
         }
 
-        return "redirect:/"; // 메인 페이지로
+        return "redirect:/";
     }
 
     @GetMapping("/sign-up")
