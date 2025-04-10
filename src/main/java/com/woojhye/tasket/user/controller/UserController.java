@@ -1,6 +1,5 @@
 package com.woojhye.tasket.user.controller;
 
-import com.woojhye.tasket.error.StorageException;
 import com.woojhye.tasket.file.FileService;
 import com.woojhye.tasket.user.domain.UserEntity;
 import com.woojhye.tasket.user.dto.SignUpDTO;
@@ -23,8 +22,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor

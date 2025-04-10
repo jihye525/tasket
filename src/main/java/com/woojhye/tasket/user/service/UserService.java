@@ -18,17 +18,29 @@ public class UserService {
     private final PasswordEncoder bCryptPasswordEncoder;
 
     public void signUpProcess(SignUpDTO signUpDTO) {
-        //active = true인 사용자만 중복 검사
-        if (userRepository.existsByEmailAndActiveTrue(signUpDTO.getEmail())) {
-            throw new RuntimeException("이미 존재하는 이메일입니다.");
-        }
+        Optional<UserEntity> existingUserOpt = userRepository.findByEmail(signUpDTO.getEmail());
 
         String encodedPassword = bCryptPasswordEncoder.encode(signUpDTO.getPassword());
 
-        UserEntity user = SignUpDTO.toEntity(signUpDTO, encodedPassword);
+        if (existingUserOpt.isPresent()) {
+            UserEntity existingUser = existingUserOpt.get();
 
-        userRepository.save(user);
+            if (existingUser.isActive()) {
+                throw new RuntimeException("이미 존재하는 이메일입니다.");
+            }
+
+            // 탈퇴한 사용자 재가입 처리
+            existingUser.setPassword(encodedPassword);
+            existingUser.setNickname(signUpDTO.getNickname());
+            existingUser.setActive(true);
+
+            userRepository.save(existingUser);
+        } else {
+            UserEntity user = SignUpDTO.toEntity(signUpDTO, encodedPassword);
+            userRepository.save(user);
+        }
     }
+
 
     public Optional<UserEntity> findByEmail(String email) {
         return userRepository.findByEmail(email);
