@@ -53,7 +53,7 @@ public class UserController{
 
         userService.updateUser(userDetails.getUsername(), dto);
 
-        if(dto.getProfile() != null){
+        if(!dto.getProfile().isEmpty()){
             fileService.deleteProfile(userDetails.getUsername());
             fileService.update(userDetails.getUsername(), dto.getProfile());
         }
