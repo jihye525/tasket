@@ -1,7 +1,7 @@
 package com.woojhye.tasket.user.controller;
 
-import com.woojhye.tasket.error.StorageException;
-import com.woojhye.tasket.file.FileService;
+import com.woojhye.tasket.file.domain.Profile;
+import com.woojhye.tasket.file.service.FileService;
 import com.woojhye.tasket.user.domain.UserEntity;
 import com.woojhye.tasket.user.dto.SignUpDTO;
 import com.woojhye.tasket.user.dto.UserUpdateDTO;
@@ -23,8 +23,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -53,6 +51,12 @@ public class UserController{
                                  @AuthenticationPrincipal UserDetails userDetails) {
 
         userService.updateUser(userDetails.getUsername(), dto);
+
+        if(dto.getProfile() != null){
+            fileService.deleteProfile(userDetails.getUsername());
+            fileService.update(userDetails.getUsername(), dto.getProfile());
+        }
+
         return "redirect:/"; // 메인 페이지로
     }
 
@@ -63,7 +67,6 @@ public class UserController{
 
     @PostMapping("/sign-up")
     public String signup(@ModelAttribute @Valid SignUpDTO userCreateForm, BindingResult bindingResult) {
-//    public String signup(@Valid SignUpDTO userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getAllErrors());
             return "contents/sign-up";
@@ -77,8 +80,8 @@ public class UserController{
         }
 
         try {
-            fileService.store(userCreateForm.getProfile());
-            userService.signUpProcess(userCreateForm);
+            Profile storeprofile = fileService.store(userCreateForm.getProfile());
+            userService.signUpProcess(userCreateForm, storeprofile);
         }catch(DataIntegrityViolationException e) {
             e.printStackTrace();
             System.out.println(e.getMessage()+ e.getCause());
@@ -117,6 +120,7 @@ public class UserController{
     @PostMapping("/withdrawal")
     public String deleteUser(@AuthenticationPrincipal UserDetails userDetails) {
         userService.deleteUser(userDetails.getUsername());
+        fileService.deleteProfile(userDetails.getUsername());
         SecurityContextHolder.clearContext(); // 로그아웃 처리
         return "redirect:/login?logout";
     }

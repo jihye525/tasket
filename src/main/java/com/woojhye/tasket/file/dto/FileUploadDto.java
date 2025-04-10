@@ -1,6 +1,7 @@
-package com.woojhye.tasket.file;
+package com.woojhye.tasket.file.dto;
 
 
+import com.woojhye.tasket.file.domain.Profile;
 import lombok.Builder;
 import lombok.Getter;
 

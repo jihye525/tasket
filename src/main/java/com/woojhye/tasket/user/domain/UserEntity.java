@@ -1,5 +1,7 @@
 package com.woojhye.tasket.user.domain;
 
+import com.woojhye.tasket.base.BaseEntity;
+import com.woojhye.tasket.file.domain.Profile;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +12,7 @@ import lombok.*;
 @Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -28,6 +30,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String role;
 
-    @Column(nullable = false)
-    private boolean active = true; // 기본값 true (탈퇴 전)
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
+
 }

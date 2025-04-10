@@ -35,7 +35,6 @@ public class SignUpDTO {
                 .password(encodedPassword)
                 .nickname(signUpDTO.getNickname())
                 .role("ROLE_USER")
-                .active(true)
                 .build();
     }
 
