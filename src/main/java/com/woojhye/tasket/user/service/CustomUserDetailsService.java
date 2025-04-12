@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserEntity userData = _userData.get();
 
         // 탈퇴한 유저 로그인 제한
-        if (!userData.isActive()) {
+        if (userData.getDeleted()) {
             throw new UsernameNotFoundException("탈퇴한 회원입니다.");
         }
 
