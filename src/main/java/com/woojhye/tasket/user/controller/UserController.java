@@ -81,7 +81,10 @@ public class UserController{
         }
 
         try {
-            Profile storeprofile = fileService.store(userCreateForm.getProfile());
+            Profile storeprofile = null;
+            if(!userCreateForm.getProfile().isEmpty()){
+                storeprofile = fileService.store(userCreateForm.getProfile());
+            }
             userService.signUpProcess(userCreateForm, storeprofile);
         }catch(DataIntegrityViolationException e) {
             e.printStackTrace();
