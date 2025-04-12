@@ -1,16 +1,18 @@
-package com.woojhye.tasket.file;
+package com.woojhye.tasket.file.domain;
 
 import com.woojhye.tasket.base.BaseEntity;
+import com.woojhye.tasket.user.domain.UserEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @NoArgsConstructor
 @Entity(name = "profile")
-public class Profile {
+public class Profile extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, unique = true)
@@ -25,8 +27,10 @@ public class Profile {
     @Column(name = "size", nullable = false)
     private long size;
 
-    @Column(name = "delete_yn")
-    private String deleteYn ="N";
+    @Setter
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @Builder
     public Profile(String originalName, String storeName, long size) {

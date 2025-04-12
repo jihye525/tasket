@@ -1,6 +1,8 @@
 package com.woojhye.tasket.user.controller;
 
-import com.woojhye.tasket.file.FileService;
+
+import com.woojhye.tasket.file.domain.Profile;
+import com.woojhye.tasket.file.service.FileService;
 import com.woojhye.tasket.user.domain.UserEntity;
 import com.woojhye.tasket.user.dto.SignUpDTO;
 import com.woojhye.tasket.user.dto.UserUpdateDTO;
@@ -41,7 +43,7 @@ public class UserController{
         UserEntity user = userService.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        model.addAttribute("user", user); // user 객체 넘기기
+        model.addAttribute("user", user);
         return "contents/mypage";
     }
 
@@ -50,7 +52,13 @@ public class UserController{
                                  @AuthenticationPrincipal UserDetails userDetails) {
 
         userService.updateUser(userDetails.getUsername(), dto);
-        return "redirect:/"; // 메인 페이지로
+
+        if(dto.getProfile() != null){
+            fileService.deleteProfile(userDetails.getUsername());
+            fileService.update(userDetails.getUsername(), dto.getProfile());
+        }
+
+        return "redirect:/";
     }
 
     @GetMapping("/sign-up")
@@ -60,7 +68,6 @@ public class UserController{
 
     @PostMapping("/sign-up")
     public String signup(@ModelAttribute @Valid SignUpDTO userCreateForm, BindingResult bindingResult) {
-//    public String signup(@Valid SignUpDTO userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getAllErrors());
             return "contents/sign-up";
@@ -74,8 +81,8 @@ public class UserController{
         }
 
         try {
-            fileService.store(userCreateForm.getProfile());
-            userService.signUpProcess(userCreateForm);
+            Profile storeprofile = fileService.store(userCreateForm.getProfile());
+            userService.signUpProcess(userCreateForm, storeprofile);
         }catch(DataIntegrityViolationException e) {
             e.printStackTrace();
             System.out.println(e.getMessage()+ e.getCause());
@@ -114,6 +121,7 @@ public class UserController{
     @PostMapping("/withdrawal")
     public String deleteUser(@AuthenticationPrincipal UserDetails userDetails) {
         userService.deleteUser(userDetails.getUsername());
+        fileService.deleteProfile(userDetails.getUsername());
         SecurityContextHolder.clearContext(); // 로그아웃 처리
         return "redirect:/login?logout";
     }

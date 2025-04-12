@@ -1,5 +1,6 @@
 package com.woojhye.tasket.user.service;
 
+import com.woojhye.tasket.file.domain.Profile;
 import com.woojhye.tasket.user.domain.UserEntity;
 import com.woojhye.tasket.user.dto.SignUpDTO;
 import com.woojhye.tasket.user.dto.UserUpdateDTO;
@@ -17,15 +18,19 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder bCryptPasswordEncoder;
 
-    public void signUpProcess(SignUpDTO signUpDTO) {
-        //active = true인 사용자만 중복 검사
-        if (userRepository.existsByEmailAndActiveTrue(signUpDTO.getEmail())) {
+    @Transactional
+    public void signUpProcess(SignUpDTO signUpDTO, Profile profile) {
+        if (userRepository.existsByEmailAndDeletedFalse(signUpDTO.getEmail())) {
             throw new RuntimeException("이미 존재하는 이메일입니다.");
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(signUpDTO.getPassword());
-
         UserEntity user = SignUpDTO.toEntity(signUpDTO, encodedPassword);
+
+        if (profile != null) {
+            profile.setUser(user);
+            user.setProfile(profile);
+        }
 
         userRepository.save(user);
     }
@@ -39,16 +44,22 @@ public class UserService {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
-        user.setNickname(dto.getNickname());
+        if (dto.getPassword() != null){
+            user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        }
 
-        userRepository.save(user);
+        if(dto.getNickname() != null){
+            user.setNickname(dto.getNickname());
+        }
+
     }
 
     @Transactional
     public void deleteUser(String email) {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-        user.setActive(false); // soft delete 처리
+        user.setDeleted(true);
+
+        userRepository.save(user);
     }
 }
